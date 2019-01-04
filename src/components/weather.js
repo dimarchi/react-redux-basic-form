@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getWeather } from '../actions';
-import { Sparklines, SparklinesLine, SparklinesReferenceLine } from 'react-sparklines';
+import { Line } from 'react-chartjs-2';
 
 class Weather extends Component {
 
@@ -35,6 +35,16 @@ class Weather extends Component {
         }
     }
 
+    handleChart(chartData, chartDates) {
+        return {
+            labels : chartDates,
+            datasets : [{
+                data : [...chartData, 50, -50],
+                label : this.state.city
+            }]
+        }
+    }
+
     render() {
         if (!this.props.weather.finished) 
         {
@@ -53,9 +63,11 @@ class Weather extends Component {
         else {
             
             let temps = [];
+            let times = [];
             let tempArray = this.props.weather.graph;
             tempArray.map((measure => {
                 temps.push(measure.main.temp);
+                times.push(measure.dt_txt);
                 return measure;
             }))
 
@@ -71,12 +83,9 @@ class Weather extends Component {
                         </form>
                     </div>
                     <div>
-                        <h1>The temperatures during the last 24 hours of measurements</h1>
+                        <h1>Weather forecast for the next 24 hours, temperatures in Celsius</h1>
                         <div>
-                            <Sparklines data={temps}>
-                                <SparklinesLine color="blue" />
-                                <SparklinesReferenceLine type="min" />
-                            </Sparklines>
+                            <Line data={this.handleChart(temps, times)} />
                         </div>
                     </div>
                 </div>
