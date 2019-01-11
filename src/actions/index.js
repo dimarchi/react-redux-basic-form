@@ -9,7 +9,7 @@ export const getIP = (responseType, data) => {
     return ({
         type : responseType,
         payload : data,
-        finsihed : true
+        finished : true
     })
 }
 
@@ -28,5 +28,6 @@ export const getWeather = findCity =>  {
 
 export const reportError = error => ({
     type : GET_ERROR,
-    payload : error
+    payload : error,
+    finished : false
 })

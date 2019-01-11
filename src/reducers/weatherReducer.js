@@ -17,7 +17,12 @@ const weatherReducer = (state = initialState, action) => {
             
             return result;
         case GET_ERROR :
-            return action.payload;
+            const errorResult = {
+                type : GET_ERROR,
+                graph : action.payload,
+                finished : false
+            }
+            return errorResult;
         default : 
             return state;
     }

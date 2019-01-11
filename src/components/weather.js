@@ -46,6 +46,11 @@ class Weather extends Component {
     }
 
     render() {
+        let errorMessage = ' ';
+        if (this.props.weather.type === 'GET_ERROR') 
+        {
+           errorMessage = 'Request could not be completed.'
+        }
         if (!this.props.weather.finished) 
         {
             return (
@@ -57,6 +62,9 @@ class Weather extends Component {
                             <input type="submit" value="Search" />
                         </label>
                     </form>
+                    <div className="error">
+                        {errorMessage}
+                    </div>
                 </div>
             )
         } 
