@@ -39,6 +39,7 @@ class Weather extends Component {
         return {
             labels : chartDates,
             datasets : [{
+                tension : 0,
                 data : [...chartData, 50, -50],
                 label : this.state.city
             }]
